@@ -17,6 +17,18 @@ class App extends Component {
     );
     this.setState({ palette: newPalette });
   };
+   // Lifecycle Methods to save data between sessions:
+  componentDidMount() {
+    const stateString = localStorage.getItem("stateString");
+    if (stateString) {
+      const savedState = JSON.parse(stateString);
+      this.setState(savedState);
+    }
+  }
+  componentDidUpdate() {
+    const stateString = JSON.stringify(this.state);
+    localStorage.setItem("stateString", stateString);
+  }
   render() {
     return (
       <div className="App">
